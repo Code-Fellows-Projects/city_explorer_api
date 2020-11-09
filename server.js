@@ -17,9 +17,9 @@ function handleLocation(request, response) {
   try {
     let geoData = require('./data/location.json');
 
-    let city = request.query.city;
+    // let city = request.query.city;
 
-    let locationData = new Location(city, geoData);
+    let locationData = new LatLon(geoData);
     response.send(locationData);
   } catch (error) {
     console.error(error);
@@ -27,13 +27,19 @@ function handleLocation(request, response) {
 }
 
 
-function Location(city, geoData) {
-  this.search_query = city;
-  this.formatted_query = geoData[0].display_name;
+// function Location(city, geoData) {
+//   this.search_query = city;
+//   this.formatted_query = geoData[0].display_name;
+//   this.latitude = geoData[0].lat;
+//   this.longitude = geoData[0].lon;
+// }
+
+function LatLon(geoData) {
+  // this.search_query = city;
+  // this.formatted_query = geoData[0].display_name;
   this.latitude = geoData[0].lat;
   this.longitude = geoData[0].lon;
 }
-
 
 
 
