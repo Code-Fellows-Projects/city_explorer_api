@@ -34,16 +34,28 @@ app.listen(PORT, () => {
 ## Change Log
 
 ```
-Number and name of feature: 
+Number and name of feature: Feature 1 file tree and repo setup 
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1.5 hr
 
-Start time: 
+Start time: 11:30am 
+
+Finish time: 1:30pm
+
+Actual time needed to complete: 2 hours
+```
+```
+Number and name of feature: Feature 2 Adding location response
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 2:30pm
 
 Finish time: 
 
 Actual time needed to complete: 
 ```
+
 
 ## Credits and Collaborations
 
