@@ -43,9 +43,10 @@ function handleWeather(request, response) {
     let weatherJson = require('./data/weather.json');
 
     let weatherArray = [];
+    let city = weatherJson.city_name;
 
     weatherJson.data.forEach(day => {
-      let weatherData = new Weather(day);
+      let weatherData = new Weather(city, day);
       weatherArray.push(weatherData);
     })
     response.send(weatherArray);
@@ -54,9 +55,10 @@ function handleWeather(request, response) {
   }
 }
 
-function Weather(weatherJson) {
+function Weather(city, weatherJson) {
   this.day = weatherJson.valid_date;
   this.forecast = weatherJson.weather.description;
+  this.location = city;
 }
 
 app.listen(PORT, () => {
