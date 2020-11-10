@@ -29,7 +29,6 @@ function handleLocation(request, response) {
   }
 }
 
-
 function Location(city, geoData) {
   this.search_query = city;
   this.formatted_query = geoData[0].display_name;
@@ -37,11 +36,28 @@ function Location(city, geoData) {
   this.longitude = geoData[0].lon;
 }
 
+app.get('/weather', handleWeather);
 
+function handleWeather(request, response) {
+  try {
+    let weatherJson = require('./data/weather.json');
 
+    let weatherArray = [];
 
+    weatherJson.data.forEach(day => {
+      let weatherData = new Weather(day);
+      weatherArray.push(weatherData);
+    })
+    response.send(weatherArray);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-
+function Weather(weatherJson) {
+  this.day = weatherJson.valid_date;
+  this.forecast = weatherJson.weather.description;
+}
 
 app.listen(PORT, () => {
   console.log(`server up: ${PORT}`);

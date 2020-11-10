@@ -58,7 +58,7 @@ Actual time needed to complete: 1.5 hours
 ```
 Number and name of feature: Feature 3 Adding weather response
 
-Estimate of time needed to complete: 1 hour
+Estimate of time needed to complete: 2 hour
 
 Start time: 4pm
 
