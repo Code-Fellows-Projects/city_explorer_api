@@ -59,6 +59,10 @@ function Weather(weatherJson) {
   this.time = weatherJson.datetime;
 }
 
+app.use('*', (request, response) => {
+  response.status(500).send('The page couldn\'t fully load.')
+})
+
 app.listen(PORT, () => {
   console.log(`server up: ${PORT}`);
 });
