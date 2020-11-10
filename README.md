@@ -33,6 +33,8 @@ app.listen(PORT, () => {
 
 ## Change Log
 
+### Lab 06
+
 ```
 Number and name of feature: Feature 1: Setup file tree and repo 
 
@@ -79,6 +81,20 @@ Start time: 5:55 p.m.
 Finish time: 6:05 p.m.
 
 Actual time needed to complete: 10 minutes
+```
+
+### Lab 07
+
+```
+Number and name of feature: Feature 1: refactor weather route to use .map.
+
+Estimate of time needed to complete: 30 min
+
+Start time: 3:05 p.m.
+
+Finish time:  p.m.
+
+Actual time needed to complete: 
 ```
 
 ## Credits and Collaborations

@@ -6,12 +6,6 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-// this is our proof of life
-// app.get('/', (request, response) => {
-//   response.send('cool website');
-// })
-
 app.use(cors());
 
 app.get('/location', handleLocation);
@@ -41,13 +35,7 @@ app.get('/weather', handleWeather);
 function handleWeather(request, response) {
   try {
     let weatherJson = require('./data/weather.json');
-
-    let weatherArray = [];
-
-    weatherJson.data.forEach(day => {
-      let weatherData = new Weather(day);
-      weatherArray.push(weatherData);
-    })
+    let weatherArray = weatherJson.data.map(day => new Weather(day));
     response.send(weatherArray);
   } catch (error) {
     console.error(error);
