@@ -44,6 +44,7 @@ Finish time: 1:30pm
 
 Actual time needed to complete: 2 hours
 ```
+
 ```
 Number and name of feature: Feature 2: Add location response
 
@@ -55,6 +56,7 @@ Finish time: 4pm
 
 Actual time needed to complete: 1.5 hours
 ```
+
 ```
 Number and name of feature: Feature 3: Add weather response
 
@@ -66,16 +68,18 @@ Finish time: 6pm
 
 Actual time needed to complete: 2 hour
 ```
+
 ```
 Number and name of feature: Feature 4: Status 500 Error
 
 Estimate of time needed to complete: 15 min
 
-Start time: 6pm
+Start time: 5:55 p.m.
 
-Finish time: 
+Finish time: 6:05 p.m.
 
-Actual time needed to complete: 
+Actual time needed to complete: 10 minutes
 ```
+
 ## Credits and Collaborations
 
