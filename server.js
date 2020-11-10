@@ -55,8 +55,8 @@ function handleWeather(request, response) {
 }
 
 function Weather(weatherJson) {
-  this.day = weatherJson.datetime;
   this.forecast = weatherJson.weather.description;
+  this.day = weatherJson.datetime;
 }
 
 app.listen(PORT, () => {
