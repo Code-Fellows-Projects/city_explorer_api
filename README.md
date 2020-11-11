@@ -107,6 +107,7 @@ Finish time: 4:20 pm
 
 Actual time needed to complete: 1 hour
 ```
+
 ```
 Number and name of feature: Feature 3: Refactor weather route with API
 
@@ -118,5 +119,18 @@ Finish time:  6:20 p.m.
 
 Actual time needed to complete: 2ish hours 
 ```
+
+```
+Number and name of feature: Feature 4: Add trails route with API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 6:30 p.m.
+
+Finish time: 
+
+Actual time needed to complete: 
+```
+
 ## Credits and Collaborations
 
