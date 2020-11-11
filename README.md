@@ -92,10 +92,31 @@ Estimate of time needed to complete: 30 min
 
 Start time: 3:05 p.m.
 
-Finish time:  p.m.
+Finish time: 3:20 p.m.
 
-Actual time needed to complete: 
+Actual time needed to complete: 15 min
 ```
+```
+Number and name of feature: Feature 2: refactor location route with API
 
+Estimate of time needed to complete: 1 hour
+
+Start time: 3:20 pm
+
+Finish time: 4:20 pm
+
+Actual time needed to complete: 1 hour
+```
+```
+Number and name of feature: Feature 3: Refactor weather route with API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 4:30 p.m.
+
+Finish time:  6:20 p.m.
+
+Actual time needed to complete: 2ish hours 
+```
 ## Credits and Collaborations
 
