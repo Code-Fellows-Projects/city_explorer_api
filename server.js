@@ -5,38 +5,51 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const superagent = require('superagent');
+// const { restart } = require('nodemon');
+
+const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
 
 app.use(cors());
+// app.use(restart());
 
 app.get('/location', handleLocation);
 
-function handleLocation(request, response) {
-  try {
-    let geoData = require('./data/location.json');
-
-    let city = request.query.city;
-
-    let locationData = new Location(city, geoData);
-    response.send(locationData);
-  } catch (error) {
-    console.error(error);
+function handleLocation(req, res) {
+  let city = req.query.city;
+  let url = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE_API_KEY}&q=${city}&format=json&limit=1`;
+  let locations = {};
+  if (locations[url]) {
+    res.send(locations[url]);
+  } else {
+    superagent.get(url)
+      .then(data => {
+        const geoData = data.body[0];
+        const location = new Location(city, geoData);
+        locations[url] = location;
+        console.log('Visited location:', locations);
+        res.json(location);
+      })
+      .catch(() => {
+        console.error('Oops!');
+      })
   }
 }
 
 function Location(city, geoData) {
   this.search_query = city;
-  this.formatted_query = geoData[0].display_name;
-  this.latitude = geoData[0].lat;
-  this.longitude = geoData[0].lon;
+  this.formatted_query = geoData.display_name;
+  this.latitude = geoData.lat;
+  this.longitude = geoData.lon;
 }
 
 app.get('/weather', handleWeather);
 
-function handleWeather(request, response) {
+function handleWeather(req, res) {
   try {
     let weatherJson = require('./data/weather.json');
     let weatherArray = weatherJson.data.map(day => new Weather(day));
-    response.send(weatherArray);
+    res.send(weatherArray);
   } catch (error) {
     console.error(error);
   }
@@ -47,8 +60,8 @@ function Weather(weatherJson) {
   this.time = weatherJson.datetime;
 }
 
-app.use('*', (request, response) => {
-  response.status(500).send('The page couldn\'t fully load.')
+app.use('*', (req, res) => {
+  res.status(500).send('The page couldn\'t fully load.')
 })
 
 app.listen(PORT, () => {
