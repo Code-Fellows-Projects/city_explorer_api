@@ -10,6 +10,8 @@ const superagent = require('superagent');
 
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+const TRAIL_API_KEY = process.env.TRAIL_API_KEY;
+
 app.use(cors());
 // app.use(restart());
 
@@ -46,30 +48,57 @@ function Location(city, geoData) {
 app.get('/weather', handleWeather);
 
 function handleWeather(req, res) {
-
   let lat = req.query.latitude;
   let lon = req.query.longitude;
   let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${WEATHER_API_KEY}&lat=${lat}&lon=${lon}&format=json&days=7`;
-  //let weatherData = {};
 
   superagent.get(url)
     .then(data => {
-      console.log(data.body.data[0].weather);
       const weatherResults = data.body.data;
       let weatherData = weatherResults.map(day => new Weather(day));
       res.send(weatherData);
-      console.log(weatherData);
     })
     .catch(() => {
-      console.error('no weather data available');
-
+      console.error('No weather data available');
     });
-
 }
 
 function Weather(day) {
   this.forecast = day.weather.description;
   this.time = new Date(day.ts * 1000).toDateString();
+}
+
+app.get('/trails', handleTrails);
+
+function handleTrails(req, res) {
+  let lat = req.query.latitude;
+  let lon = req.query.longitude;
+  let url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&key=${TRAIL_API_KEY}`;
+
+  superagent.get(url)
+    .then(data => {
+      console.log(data.body);
+      const trailResults = data.body.trails;
+      let trailData = trailResults.map(trails => new Trail(trails));
+      res.send(trailData);
+    })
+    .catch(() => {
+      console.error('Are there trails?')
+    })
+}
+
+function Trail(trails) {
+  this.name = trails.name;
+  this.location = trails.location;
+  this.length = trails.length;
+  this.stars = trails.stars;
+  this.star_votes = trails.starVotes;
+  this.summary = trails.summary;
+  this.trail_url = trails.url;
+  this.conditions = trails.conditionDetails;
+  console.log(trails.conditionDate.split('0'));
+  this.condition_date = trails.conditionDate.split(' ')[0];
+  this.condition_time = trails.conditionDate.split(' ')[1];
 }
 
 app.use('*', (req, res) => {
