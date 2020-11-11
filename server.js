@@ -9,7 +9,7 @@ const superagent = require('superagent');
 // const { restart } = require('nodemon');
 
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
-
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 app.use(cors());
 // app.use(restart());
 
@@ -46,18 +46,30 @@ function Location(city, geoData) {
 app.get('/weather', handleWeather);
 
 function handleWeather(req, res) {
-  try {
-    let weatherJson = require('./data/weather.json');
-    let weatherArray = weatherJson.data.map(day => new Weather(day));
-    res.send(weatherArray);
-  } catch (error) {
-    console.error(error);
-  }
+
+  let lat = req.query.latitude;
+  let lon = req.query.longitude;
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${WEATHER_API_KEY}&lat=${lat}&lon=${lon}&format=json&days=7`;
+  //let weatherData = {};
+
+  superagent.get(url)
+    .then(data => {
+      console.log(data.body.data[0].weather);
+      const weatherResults = data.body.data;
+      let weatherData = weatherResults.map(day => new Weather(day));
+      res.send(weatherData);
+      console.log(weatherData);
+    })
+    .catch(() => {
+      console.error('no weather data available');
+
+    });
+
 }
 
-function Weather(weatherJson) {
-  this.forecast = weatherJson.weather.description;
-  this.time = weatherJson.datetime;
+function Weather(day) {
+  this.forecast = day.weather.description;
+  this.time = new Date(day.ts * 1000).toDateString();
 }
 
 app.use('*', (req, res) => {
