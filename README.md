@@ -107,7 +107,6 @@ Finish time: 4:20 pm
 
 Actual time needed to complete: 1 hour
 ```
-
 ```
 Number and name of feature: Feature 3: Refactor weather route with API
 
@@ -119,7 +118,6 @@ Finish time:  6:20 p.m.
 
 Actual time needed to complete: 2ish hours 
 ```
-
 ```
 Number and name of feature: Feature 4: Add trails route with API
 
@@ -127,10 +125,17 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 6:30 p.m.
 
-Finish time: 
+Finish time: 7:45 pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 1.15 hours
 ```
 
-## Credits and Collaborations
+## Credits and Collaborators
 
++ TAs: Thank you to our awesome TAs Nicco & Chance
+
++ Websites:
+
++ [Weatherbit.io](https://www.weatherbit.io/)
++ [Locationiq](https://locationiq.com/)
++ [Hiking project](https://www.hikingproject.com/data)
