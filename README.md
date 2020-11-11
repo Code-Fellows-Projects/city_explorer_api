@@ -48,7 +48,7 @@ Actual time needed to complete: 2 hours
 ```
 
 ```
-Number and name of feature: Feature 2: Add location response
+Number and name of feature: Feature 2: Add location res
 
 Estimate of time needed to complete: 1 hour
 
@@ -60,7 +60,7 @@ Actual time needed to complete: 1.5 hours
 ```
 
 ```
-Number and name of feature: Feature 3: Add weather response
+Number and name of feature: Feature 3: Add weather res
 
 Estimate of time needed to complete: 2 hour
 
