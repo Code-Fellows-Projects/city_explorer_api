@@ -155,17 +155,16 @@ Finish time: 7:40 p.m.
 Actual time needed to complete: 1 hour, 20 minutes
 ```
 ```
-Number and name of feature: Feature 3: 
+Number and name of feature: Feature 3: Deploy  
 
-Estimate of time needed to complete:
+Estimate of time needed to complete: 30 mins
 
-Start time: 
+Start time: 7:45 p.m.
 
-Finish time:  
+Finish time: 7:55 p.m.
 
-Actual time needed to complete: 
+Actual time needed to complete: 10 mins
 ```
-
 
 
 ## Credits and Collaborators
