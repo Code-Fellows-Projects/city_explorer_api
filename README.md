@@ -125,10 +125,48 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 6:30 p.m.
 
-Finish time: 7:45 pm
+Finish time: 7:45 p.m.
 
 Actual time needed to complete: 1.15 hours
 ```
+
+### Lab 08
+
+```
+Number and name of feature: Feature 1: Add database setup and table creation
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2:45 p.m.
+
+Finish time: 5:45 p.m. 
+
+Actual time needed to complete: 3 hours
+```
+```
+Number and name of feature: Feature 2: 
+
+Estimate of time needed to complete:
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+```
+```
+Number and name of feature: Feature 3: 
+
+Estimate of time needed to complete:
+
+Start time: 
+
+Finish time:  
+
+Actual time needed to complete: 
+```
+
+
 
 ## Credits and Collaborators
 
