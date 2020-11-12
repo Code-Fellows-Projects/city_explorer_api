@@ -133,7 +133,7 @@ Actual time needed to complete: 1.15 hours
 ### Lab 08
 
 ```
-Number and name of feature: Feature 1: Add database setup and table creation
+Number and name of feature: Feature 1: Add database setup and create a table.
 
 Estimate of time needed to complete: 2 hours
 
@@ -144,15 +144,15 @@ Finish time: 5:45 p.m.
 Actual time needed to complete: 3 hours
 ```
 ```
-Number and name of feature: Feature 2: 
+Number and name of feature: Feature 2: Create a function to check for extant location information before going out to an API for new info.
 
-Estimate of time needed to complete:
+Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 6:20 p.m.
 
-Finish time: 
+Finish time: 7:40 p.m.
 
-Actual time needed to complete: 
+Actual time needed to complete: 1 hour, 20 minutes
 ```
 ```
 Number and name of feature: Feature 3: 

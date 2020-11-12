@@ -26,33 +26,38 @@ app.get('/location', handleLocation);
 function handleLocation(req, res) {
   let city = req.query.city;
   let url = `https://us1.locationiq.com/v1/search.php?key=${GEOCODE_API_KEY}&q=${city}&format=json&limit=1`;
-  let locations = {};
-  if (locations[url]) {
-    res.send(locations[url]);
-  } else {
-    superagent.get(url)
-      .then(data => {
-        const geoData = data.body[0];
-        const location = new Location(city, geoData);
-        locations[url] = location;
-        console.log('Visited location:', locations);
-        let SQL = 'INSERT INTO location (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4) RETURNING *';
-        let values = [location.search_query, location.formatted_query, location.latitude, location.longitude];
 
-        client.query(SQL, values)
-          .then(results => {
-            console.log('this is the raw object we will get back:', results.rows);
-          })
-          .catch(error => {
-            res.status(500).send(error);
-          })
-        res.json(location);
-      })
-      .catch(() => {
-        console.error('Oops!');
-      })
-  }
+  let SQL = `SELECT * FROM location WHERE search_query = $1`;
+  let values = [city];
+  client.query(SQL, values)
+    .then(dataResult => {
+      if (dataResult.rowCount) {
+        res.send(dataResult.rows[0]);
+        console.log('DB location:', dataResult);
+      } else {
+        superagent.get(url)
+          .then(data => {
+            const geoData = data.body[0];
+            const location = new Location(city, geoData);
+            console.log('Visited location:', location);
+            let SQL = 'INSERT INTO location (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4) RETURNING *';
+            let values = [location.search_query, location.formatted_query, location.latitude, location.longitude];
 
+            client.query(SQL, values)
+              .then(results => {
+                console.log('this is the raw object we will get back:', results.rows);
+                res.json(results.rows[0]);
+              })
+              .catch(error => {
+                res.status(500).send(error);
+              })
+          })
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send(error);
+    })
 }
 
 function Location(city, geoData) {
