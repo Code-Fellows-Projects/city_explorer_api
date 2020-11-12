@@ -2,11 +2,15 @@
 
 require('dotenv').config();
 const express = require('express');
+const pg = require('pg');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
-// const { restart } = require('nodemon');
+const { json } = require('express');
+
+console.log(process.env.DATABASE_URL);
+const client = new pg.Client(process.env.DATABASE_URL);
 
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
@@ -14,7 +18,9 @@ const TRAIL_API_KEY = process.env.TRAIL_API_KEY;
 
 app.use(cors());
 // app.use(restart());
-
+client.on('error', (error) => {
+  console.log(error);
+})
 app.get('/location', handleLocation);
 
 function handleLocation(req, res) {
@@ -30,12 +36,23 @@ function handleLocation(req, res) {
         const location = new Location(city, geoData);
         locations[url] = location;
         console.log('Visited location:', locations);
+        let SQL = 'INSERT INTO location (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4) RETURNING *';
+        let values = [location.search_query, location.formatted_query, location.latitude, location.longitude];
+
+        client.query(SQL, values)
+          .then(results => {
+            console.log('this is the raw object we will get back:', results.rows);
+          })
+          .catch(error => {
+            res.status(500).send(error);
+          })
         res.json(location);
       })
       .catch(() => {
         console.error('Oops!');
       })
   }
+
 }
 
 function Location(city, geoData) {
@@ -104,7 +121,11 @@ function Trail(trails) {
 app.use('*', (req, res) => {
   res.status(500).send('The page couldn\'t fully load.')
 })
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`server up: ${PORT}`);
+    });
+  })
 
-app.listen(PORT, () => {
-  console.log(`server up: ${PORT}`);
-});
+
