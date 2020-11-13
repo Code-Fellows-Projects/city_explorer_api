@@ -166,10 +166,46 @@ Finish time: 7:55 p.m.
 Actual time needed to complete: 10 mins
 ```
 
+### Lab 08
+
+```
+Number and name of feature: Feature 1: Add a req/res API route for local movies.
+
+Estimate of time needed to complete: 1 hour.
+
+Start time: 3:00 p.m.
+
+Finish time:  
+
+Actual time needed to complete:
+```
+```
+Number and name of feature: Feature 2: 
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+```
+```
+Number and name of feature: Feature 3:   
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+```
+
 
 ## Credits and Collaborators
 
-+ TAs: Thank you to our awesome TAs Nicco & Chance
++ TAs: Thank you to our awesome TAs Nicco, Chance, Skyler, Bade
 
 + Websites:
 
