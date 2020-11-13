@@ -25,11 +25,11 @@ app.listen(PORT, () => {
 })
 ```
 
-
 ## Architecture
 
-+ JavaScript, node.js, express, NPM
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
++ We used JavaScript to create the server and the following libraries, packages and APIs to stand it up:
+    + Libraries and packages: Express, node.js, NPM, PG, postgres, cors, dotenv, superagent, and nodemon.
+    + APIs: LocationIQ.com, weatherbit.io, hikingproject.com, themoviedb.org, and yelp.com
 
 ## Change Log
 

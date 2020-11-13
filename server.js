@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
 const { json } = require('express');
 
-// console.log(process.env.DATABASE_URL);
 const client = new pg.Client(process.env.DATABASE_URL);
 
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
@@ -23,7 +22,15 @@ app.use(cors());
 client.on('error', (error) => {
   console.log(error);
 })
+
 app.get('/location', handleLocation);
+app.get('/weather', handleWeather);
+app.get('/trails', handleTrails);
+app.get('/movies', handleMovies);
+app.get('/yelp', handleYelp);
+app.use('*', (req, res) => {
+  res.status(500).send('The page couldn\'t fully load.')
+})
 
 function handleLocation(req, res) {
   let city = req.query.city;
@@ -68,8 +75,6 @@ function Location(city, geoData) {
   this.longitude = geoData.lon;
 }
 
-app.get('/weather', handleWeather);
-
 function handleWeather(req, res) {
   let lat = req.query.latitude;
   let lon = req.query.longitude;
@@ -81,8 +86,8 @@ function handleWeather(req, res) {
       let weatherData = weatherResults.map(day => new Weather(day));
       res.send(weatherData);
     })
-    .catch(() => {
-      console.error('No weather data available');
+    .catch(error => {
+      res.status(500).send('Where is the forecast?', error);
     });
 }
 
@@ -90,8 +95,6 @@ function Weather(day) {
   this.forecast = day.weather.description;
   this.time = new Date(day.ts * 1000).toDateString();
 }
-
-app.get('/trails', handleTrails);
 
 function handleTrails(req, res) {
   let lat = req.query.latitude;
@@ -104,8 +107,8 @@ function handleTrails(req, res) {
       let trailData = trailResults.map(trails => new Trail(trails));
       res.send(trailData);
     })
-    .catch(() => {
-      console.error('Are there trails?')
+    .catch(error => {
+      res.status(500).send('Any fun trails around here?', error);
     })
 }
 
@@ -122,11 +125,9 @@ function Trail(trails) {
   this.condition_time = trails.conditionDate.split(' ')[1];
 }
 
-app.get('/movies', handleMovies);
-
 function handleMovies(req, res) {
   let city = req.query.search_query;
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=2df6bd5e9d3cee32e72b8cf8ca96d552&language=en-US&query=${city}&page=1&include_adult=false`;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&language=en-US&query=${city}&page=1&include_adult=false`;
 
   superagent.get(url)
     .then(data => {
@@ -134,8 +135,8 @@ function handleMovies(req, res) {
       let movieData = currentMovieResults.map(movies => new Movie(movies));
       res.send(movieData);
     })
-    .catch(() => {
-      console.error('Are movies playing?');
+    .catch(error => {
+      res.status(500).send('Where are the movies?', error);
     })
 }
 
@@ -147,22 +148,16 @@ function Movie(movies) {
   this.image_url = `https://image.tmdb.org/t/p/w500/${movies.poster_path}`;
   this.popularity = movies.popularity;
   this.released_on = movies.release_date;
-
 }
-
-app.get('/yelp', handleYelp);
 
 function handleYelp(req, res) {
   let lat = req.query.latitude;
   let lon = req.query.longitude;
   let url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}`
 
-
-
   superagent.get(url)
     .set('Authorization', `Bearer ${YELP_API_KEY}`)
     .then(data => {
-      console.log(data.body.businesses);
       const restaurantResults = data.body.businesses;
       let restaurantData = restaurantResults.map(restaurants => new Restaurant(restaurants));
       res.send(restaurantData);
@@ -181,9 +176,6 @@ function Restaurant(restaurants) {
 }
 
 
-app.use('*', (req, res) => {
-  res.status(500).send('The page couldn\'t fully load.')
-})
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
