@@ -128,7 +128,7 @@ function Trail(trails) {
 app.get('/movies', handleMovies);
 
 function handleMovies(req, res) {
-  let city = req.query.city;
+  let city = req.query.search_query;
   let url = `https://api.themoviedb.org/3/search/movie?api_key=2df6bd5e9d3cee32e72b8cf8ca96d552&language=en-US&query=${city}&page=1&include_adult=false`;
 
   superagent.get(url)
@@ -148,9 +148,10 @@ function Movie(movies) {
   this.overview = movies.overview;
   this.average_votes = movies.vote_average;
   this.total_votes = movies.vote_count;
-  this.image_url = movies.poster_path;
+  this.image_url = `https://image.tmdb.org/t/p/w500/${movies.poster_path}`;
   this.popularity = movies.popularity;
   this.released_on = movies.release_date;
+
 }
 
 app.use('*', (req, res) => {

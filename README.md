@@ -175,9 +175,9 @@ Estimate of time needed to complete: 1 hour.
 
 Start time: 3:00 p.m.
 
-Finish time:  
+Finish time: 4:50 p.m.
 
-Actual time needed to complete:
+Actual time needed to complete: 1 hour and 50 min
 ```
 ```
 Number and name of feature: Feature 2: 
