@@ -180,32 +180,21 @@ Finish time: 4:50 p.m.
 Actual time needed to complete: 1 hour and 50 min
 ```
 ```
-Number and name of feature: Feature 2: 
+Number and name of feature: Feature 2: Add a req/res API route for yelp restaurants
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 6:05 p.m.
 
-Finish time: 
+Finish time: 7:00 p.m.
 
-Actual time needed to complete: 
-```
-```
-Number and name of feature: Feature 3:   
-
-Estimate of time needed to complete: 
-
-Start time: 
-
-Finish time: 
-
-Actual time needed to complete: 
+Actual time needed to complete: 55 min
 ```
 
 
 ## Credits and Collaborators
 
-+ TAs: Thank you to our awesome TAs Nicco, Chance, Skyler, Bade
++ Thank you to our awesome TAs Nicco, Chance, Skyler, Bade, and Ron
 
 + Websites:
 

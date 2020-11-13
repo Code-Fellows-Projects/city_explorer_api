@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
 const { json } = require('express');
 
-console.log(process.env.DATABASE_URL);
+// console.log(process.env.DATABASE_URL);
 const client = new pg.Client(process.env.DATABASE_URL);
 
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
@@ -35,19 +35,18 @@ function handleLocation(req, res) {
     .then(dataResult => {
       if (dataResult.rowCount) {
         res.send(dataResult.rows[0]);
-        console.log('DB location:', dataResult);
+
       } else {
         superagent.get(url)
           .then(data => {
             const geoData = data.body[0];
             const location = new Location(city, geoData);
-            console.log('Visited location:', location);
+
             let SQL = 'INSERT INTO location (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4) RETURNING *';
             let values = [location.search_query, location.formatted_query, location.latitude, location.longitude];
 
             client.query(SQL, values)
               .then(results => {
-                console.log('this is the raw object we will get back:', results.rows);
                 res.json(results.rows[0]);
               })
               .catch(error => {
@@ -101,7 +100,6 @@ function handleTrails(req, res) {
 
   superagent.get(url)
     .then(data => {
-      console.log(data.body);
       const trailResults = data.body.trails;
       let trailData = trailResults.map(trails => new Trail(trails));
       res.send(trailData);
@@ -120,7 +118,6 @@ function Trail(trails) {
   this.summary = trails.summary;
   this.trail_url = trails.url;
   this.conditions = trails.conditionDetails;
-  console.log(trails.conditionDate.split('0'));
   this.condition_date = trails.conditionDate.split(' ')[0];
   this.condition_time = trails.conditionDate.split(' ')[1];
 }
@@ -133,7 +130,6 @@ function handleMovies(req, res) {
 
   superagent.get(url)
     .then(data => {
-      console.log(data.body.results);
       const currentMovieResults = data.body.results;
       let movieData = currentMovieResults.map(movies => new Movie(movies));
       res.send(movieData);
@@ -153,6 +149,37 @@ function Movie(movies) {
   this.released_on = movies.release_date;
 
 }
+
+app.get('/yelp', handleYelp);
+
+function handleYelp(req, res) {
+  let lat = req.query.latitude;
+  let lon = req.query.longitude;
+  let url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}`
+
+
+
+  superagent.get(url)
+    .set('Authorization', `Bearer ${YELP_API_KEY}`)
+    .then(data => {
+      console.log(data.body.businesses);
+      const restaurantResults = data.body.businesses;
+      let restaurantData = restaurantResults.map(restaurants => new Restaurant(restaurants));
+      res.send(restaurantData);
+    })
+    .catch(error => {
+      res.status(500).send('Are restaurants open?', error);
+    })
+}
+
+function Restaurant(restaurants) {
+  this.name = restaurants.name;
+  this.image_url = restaurants.image_url;
+  this.price = restaurants.price;
+  this.rating = restaurants.rating;
+  this.url = restaurants.url;
+}
+
 
 app.use('*', (req, res) => {
   res.status(500).send('The page couldn\'t fully load.')
