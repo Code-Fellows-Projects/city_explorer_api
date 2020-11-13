@@ -15,9 +15,11 @@ const client = new pg.Client(process.env.DATABASE_URL);
 const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 const TRAIL_API_KEY = process.env.TRAIL_API_KEY;
+const MOVIE_API_KEY = process.env.MOVIE_API_KEY;
+const YELP_API_KEY = process.env.YELP_API_KEY;
 
 app.use(cors());
-// app.use(restart());
+
 client.on('error', (error) => {
   console.log(error);
 })
@@ -121,6 +123,34 @@ function Trail(trails) {
   console.log(trails.conditionDate.split('0'));
   this.condition_date = trails.conditionDate.split(' ')[0];
   this.condition_time = trails.conditionDate.split(' ')[1];
+}
+
+app.get('/movies', handleMovies);
+
+function handleMovies(req, res) {
+  let city = req.query.city;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=2df6bd5e9d3cee32e72b8cf8ca96d552&language=en-US&query=${city}&page=1&include_adult=false`;
+
+  superagent.get(url)
+    .then(data => {
+      console.log(data.body.results);
+      const currentMovieResults = data.body.results;
+      let movieData = currentMovieResults.map(movies => new Movie(movies));
+      res.send(movieData);
+    })
+    .catch(() => {
+      console.error('Are movies playing?');
+    })
+}
+
+function Movie(movies) {
+  this.title = movies.title;
+  this.overview = movies.overview;
+  this.average_votes = movies.vote_average;
+  this.total_votes = movies.vote_count;
+  this.image_url = movies.poster_path;
+  this.popularity = movies.popularity;
+  this.released_on = movies.release_date;
 }
 
 app.use('*', (req, res) => {
