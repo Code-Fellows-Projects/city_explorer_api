@@ -191,13 +191,14 @@ Finish time: 7:00 p.m.
 Actual time needed to complete: 55 min
 ```
 
-
 ## Credits and Collaborators
 
 + Thank you to our awesome TAs Nicco, Chance, Skyler, Bade, and Ron
 
-+ Websites:
++ Websites (API Sources):
 
-+ [Weatherbit.io](https://www.weatherbit.io/)
-+ [Locationiq](https://locationiq.com/)
++ [Weatherbit](https://www.weatherbit.io/)
++ [LocationIQ](https://locationiq.com/)
 + [Hiking project](https://www.hikingproject.com/data)
++ [The Movie Database](https://www.themoviedb.org/?language=en-US)
++ [Yelp](yelp.com)
